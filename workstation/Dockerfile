@@ -17,6 +17,3 @@ RUN apt-get update
 RUN apt-get install -y -q build-essential openjdk-6-jdk python-dev python-boto libcurl4-nss-dev libsasl2-dev autoconf libtool git ruby emacs wget python-setuptools curl zsh tmux subversion
 
 # RUN apt-get install -y -q
-
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /var/tmp/*
