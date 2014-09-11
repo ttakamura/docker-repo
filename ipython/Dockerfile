@@ -52,10 +52,17 @@
 #  RUN pip install lshash==0.0.4dev
 #  ADD ipag.ttc /usr/local/word2vec/mycorpus/ipag.ttc
 #  RUN update-locale LANG=ja_JP.UTF-8
+#
+#  commit as tab_inc/sim_items:v1
+#
 
 FROM tab_inc/sim_items:v1
 
 RUN pip install theano
+RUN apt-add-repository -y ppa:staticfloat/juliareleases && apt-get update && apt-get install -y julia
+RUN chown root /usr/lib/sudo/sudoers.so && apt-get install -y libnettle4
+RUN julia -e 'Pkg.add("IJulia")' && julia -e 'Pkg.add("PyPlot")'
+
 
 RUN mkdir      /etc/service/ipython
 ADD ipython.sh /etc/service/ipython/run
