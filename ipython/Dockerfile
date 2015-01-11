@@ -61,12 +61,17 @@ FROM tab_inc/sim_items:v1
 RUN pip install theano
 RUN apt-add-repository -y ppa:staticfloat/juliareleases && apt-get update && apt-get install -y julia
 RUN chown root /usr/lib/sudo/sudoers.so && apt-get install -y libnettle4
-RUN julia -e 'Pkg.add("IJulia")' && julia -e 'Pkg.add("PyPlot")'
+RUN julia  -e 'Pkg.add("IJulia")' && julia -e 'Pkg.add("PyPlot")'
 
+# ------------ init script ----------------------
 
 RUN mkdir      /etc/service/ipython
 ADD ipython.sh /etc/service/ipython/run
 RUN chmod 755  /etc/service/ipython/run
-RUN mkdir      /mnt2
 
+RUN mkdir      /etc/service/ijulia
+ADD ijulia.sh  /etc/service/ijulia/run
+RUN chmod 755  /etc/service/ijulia/run
+
+RUN mkdir      /mnt2
 CMD ["/sbin/my_init"]
